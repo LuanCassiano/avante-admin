@@ -3,5 +3,7 @@ export const Colors = {
   ERROR: '#f44336',
   WARNING: '#ff9800',
   INFO: '#2196f3',
-  WHITE: '#ffffff'
+  WHITE: '#ffffff',
+  PRIMARY: '#9f15ce',
+  SECONDARY: '#c68fd3',
 }

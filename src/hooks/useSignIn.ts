@@ -1,25 +1,27 @@
-import { ISignUp } from "../interfaces/ISignUp";
-import { signUpService } from "../service/signUp";
+import { ISignIn } from "../interfaces/ISignIn";
+import { signInService } from "../service/signIn";
+import { useAuthStore } from "../zustand/useAuthStore";
 import { useToast } from "./useToast";
 
-interface ISignUpHook extends ISignUp {}
+interface ISignInHook extends ISignIn {}
 
 export function useSignIn() {
-  const { error, success } = useToast();
+  const { error } = useToast();
 
-  const signUp = async ({
+  const signIn = async ({
     email,
-    name,
     password
-  }: ISignUpHook) => {
+  }: ISignInHook) => {
+    const setUser = useAuthStore((s) => s.setUser)
+
     try {
-      await signUpService({ email, name, password });
-  
-      success('Cadastro realizado com sucesso!')
+      const response = await signInService({ email, password });
+
+      setUser({ email: response.email, uid: response.uid })
     } catch (e) {
-      error('Erro ao realizar o cadastro');
+      error('Erro ao realizar o login');
     }
   }
 
-  return { signUp }
+  return { signIn }
 }
