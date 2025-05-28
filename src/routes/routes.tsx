@@ -1,11 +1,13 @@
 import React from 'react';
 
 import SignInScreen from '../screens/SignIn/SignIn';
+import SignUpScreen from '../screens/SignUp/SignUp';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
 export type RootStackParamList = {
   SignIn: undefined;
+  SignUp: undefined;
 }
 
 const { Navigator, Screen } = createStackNavigator<RootStackParamList>();
@@ -18,6 +20,7 @@ export default function RootNavigator() {
       }}
     >
       <Screen name="SignIn" component={SignInScreen} />
+      <Screen name="SignUp" component={SignUpScreen} />
     </Navigator>
   )
 }
