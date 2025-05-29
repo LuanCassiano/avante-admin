@@ -2,9 +2,9 @@ import React, { JSX, ReactNode } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { getInputContainerStyle, styles } from './Input.styles';
 
-type TInputContainerProps = {
-  children: ReactNode;
-  leftIcon: JSX.Element;
+export type TInputContainerProps = {
+  children?: ReactNode;
+  leftIcon?: JSX.Element;
   rightIcon?: JSX.Element;
   error?: string;
   touched?: boolean;
