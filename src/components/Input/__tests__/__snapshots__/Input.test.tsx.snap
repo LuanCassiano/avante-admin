@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputContainer Component snapshot 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#ffffff",
+      "borderColor": "#9f15ce",
+      "borderRadius": 5,
+      "borderWidth": 1,
+      "height": 60,
+      "marginVertical": 10,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "marginLeft": 20,
+      }
+    }
+  />
+</View>
+`;

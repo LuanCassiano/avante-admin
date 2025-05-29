@@ -1,25 +1,21 @@
 import React, { memo } from 'react';
-import { TextInput, View } from 'react-native';
+import { KeyboardTypeOptions, TextInput } from 'react-native';
 import { Colors } from '../../../global/Colors';
 
-type TKeyboardType = 'default' | 'number-pad' | 'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad' | 'url';
+type TKeyboardType = KeyboardTypeOptions;
 
-type TInputTextProps = {
-  placeholderText: string;
-  placeholderColorText: string;
-  inputValue: string;
-  inputRef: React.RefObject<TextInput | null>;
-  inputTextType: TKeyboardType;
+export type TInputTextProps = {
+  placeholderText?: string;
+  placeholderColorText?: string;
+  inputValue?: string;
+  inputRef?: React.RefObject<TextInput | null>;
+  inputTextType?: TKeyboardType;
   onTextChange(value: string): void;
-  inputName: string;
-  fieldTouched?: (field: string) => void;
-  touched?: boolean;
-  error?: string;
-  isPasswordField: boolean;
+  isPasswordField?: boolean;
+  inputName?: string;
 }
 
 function InputText({
-  inputName,
   inputRef,
   inputTextType,
   inputValue,
@@ -27,9 +23,6 @@ function InputText({
   onTextChange,
   placeholderColorText,
   placeholderText,
-  error,
-  fieldTouched,
-  touched
 }: TInputTextProps) {
   return (
     <>

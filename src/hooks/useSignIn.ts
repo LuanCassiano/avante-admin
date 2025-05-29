@@ -12,7 +12,12 @@ export function useSignIn() {
     email,
     password
   }: ISignInHook) => {
-    const setUser = useAuthStore((s) => s.setUser)
+    const setUser = useAuthStore((s) => s.setUser);
+
+    if (!email || !password) {
+      error('Erro ao realizar o login');
+      return;
+    }
 
     try {
       const response = await signInService({ email, password });
