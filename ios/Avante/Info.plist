@@ -27,7 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>com.anonymous.Avante</string>
+          <string>luansouza.avante</string>
         </array>
       </dict>
     </array>

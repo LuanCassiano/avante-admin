@@ -1,11 +1,12 @@
 import { createNavigationContainerRef } from "@react-navigation/native";
 import { RootStackParamList } from "../routes/routes";
+import { GlobalParamList } from "../routes/types";
 
-export const navigationRef = createNavigationContainerRef<RootStackParamList>();
+export const navigationRef = createNavigationContainerRef<GlobalParamList>();
 
-export function navigate<RouteName extends keyof RootStackParamList>(
+export function navigate<RouteName extends keyof GlobalParamList>(
   screen: RouteName, 
-  params?: RootStackParamList[RouteName]
+  params?: GlobalParamList[RouteName]
  ) {
   if (navigationRef.isReady()) {
     navigationRef.navigate(screen as any, params);

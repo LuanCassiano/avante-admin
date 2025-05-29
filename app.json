@@ -14,7 +14,8 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.Avante"
+      "googleServicesFile": "./ios/Avante/GoogleService-Info.plist",
+      "bundleIdentifier": "luansouza.avante"
     },
     "android": {
       "adaptiveIcon": {
@@ -22,10 +23,24 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.Avante"
+      "googleServicesFile": "./android/app/google-services.json",
+      "package": "luanouza.avante"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      "@react-native-firebase/crashlytics",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ]
   }
 }
