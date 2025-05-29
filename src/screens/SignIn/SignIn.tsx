@@ -4,9 +4,7 @@ import {
   Platform,
   SafeAreaView,
   ScrollView,
-  Text,
   TextInput,
-  TouchableOpacity,
 } from 'react-native';
 
 import { Formik } from 'formik';
@@ -14,12 +12,20 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import InputContainer from '../../components/Input/Input';
+import { InputTextMemo } from '../../components/Input/InputText/InputText';
+import Title from '../../components/Title/Title';
 
 import { FontAwesome5 } from '@expo/vector-icons';
+
 import { Colors } from '../../global/Colors';
-import { InputTextMemo } from '../../components/Input/InputText/InputText';
+
 import { emailSchema, passwordSchema } from '../../utils/inputValidations';
+
 import { useSignIn } from '../../hooks/useSignIn';
+
+import { styles } from './SignIn.styles';
+import CustomButton from '../../components/Button/CustomButton';
+
 
 const signInSchema = Yup.object().shape({
   email: emailSchema,
@@ -39,37 +45,28 @@ export default function SignIn() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={60}>
+      <KeyboardAvoidingView
+        style={styles.keyboardAvoidingViewStyle}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={60}
+      >
         <ScrollView
-          contentContainerStyle={{
-            flexGrow: 1,
-            justifyContent: 'center',
-            padding: 20,
-          }}
+          contentContainerStyle={styles.scrollViewContentContainer}
           keyboardShouldPersistTaps="handled"
         >
+          <Title
+            fontStyle="bold"
+            textColor={Colors.PRIMARY}
+            textSize={48}
+            title='Login'
+          />
 
-          <Text
-            style={{
-              fontSize: 48,
-              fontWeight: 'bold',
-              color: Colors.PRIMARY,
-              marginVertical: 10,
-            }}
-          >
-            Login
-          </Text>
-
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: 'normal',
-              color: Colors.SECONDARY,
-              marginVertical: 10,
-            }}
-          >
-            Bem-vindo ao App Avante Voleibol - Admin
-          </Text>
+          <Title
+            fontStyle="normal"
+            textColor={Colors.SECONDARY}
+            textSize={16}
+            title='Bem-vindo ao App Avante Voleibol - Admin'
+          />
 
           <Formik
             initialValues={{
@@ -127,28 +124,14 @@ export default function SignIn() {
                   />
                 </InputContainer>
 
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: Colors.PRIMARY,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: 16,
-                    borderRadius: 50,
-                    marginVertical: 10,
-                  }}
-                  onPress={() => handleSubmit()}
-                >
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      color: Colors.WHITE,
-                      fontWeight: 'bold',
-                      textTransform: 'uppercase'
-                    }}
-                  >
-                    Entrar
-                  </Text>
-                </TouchableOpacity>
+                <CustomButton
+                  title='Entrar'
+                  buttonBgColor={Colors.PRIMARY}
+                  buttonTitleColor={Colors.WHITE}
+                  buttonTitleFontStyle="bold"
+                  buttonTitleSize={16}
+                  onButtonPress={() => handleSubmit()}
+                />
               </>
             )}
           </Formik>
