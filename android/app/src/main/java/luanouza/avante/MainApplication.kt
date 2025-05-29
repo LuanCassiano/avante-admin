@@ -1,4 +1,4 @@
-package com.anonymous.Avante
+package luanouza.avante
 
 import android.app.Application
 import android.content.res.Configuration
