@@ -5,4 +5,5 @@ export type GlobalParamList = {
   HeadOfficeList: undefined;
   HeadOfficeForm: undefined;
   HeadOfficeNav: undefined;
+  HeadOfficeDetail: { id: string };
 }

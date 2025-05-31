@@ -4,10 +4,10 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { styles } from "./FAB.styles";
 import { TFABProps } from "./FAB.types";
 
-function RoundedButton ({ onClick }: TFABProps) {
+function RoundedButton ({ onPressButton }: TFABProps) {
   return (
     <TouchableOpacity
-      onPress={onClick}
+      onPress={onPressButton}
       style={styles.fab}
     >
       <MaterialIcons name="add" size={24} color="white" />

@@ -1,4 +1,6 @@
-export interface IHeadOffice {
+import { IBaseEntity } from "./IBaseEntity";
+
+export interface IHeadOffice extends IBaseEntity {
   name: string;
   address: string;
   phone?: string;

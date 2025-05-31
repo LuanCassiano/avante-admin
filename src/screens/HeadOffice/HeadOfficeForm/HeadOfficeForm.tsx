@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { ScrollView, Text, TextInput, View } from "react-native";
+import { ScrollView, TextInput, View } from "react-native";
 import { FontAwesome5 } from '@expo/vector-icons';
 
 import Container from "../../../components/Container/Container";
@@ -13,8 +13,20 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import CustomButton from "../../../components/Button/CustomButton";
-import { addressSchema, citySchema, nameSchema, neighborhoodSchema, postalCodeSchema, stateSchema, streetNumberSchema } from "../../../utils/inputValidations";
-import { useHeadOffice } from "../../../hooks/useHeadOffice";
+
+import {
+  addressSchema,
+  citySchema,
+  nameSchema,
+  neighborhoodSchema,
+  postalCodeSchema,
+  stateSchema,
+  streetNumberSchema
+} from "../../../utils/inputValidations";
+
+import { useAddData } from "../../../hooks/useAddData";
+
+import { addHeadOfficeService } from "../../../service/headOfficeService";
 
 const createHeadOfficeSchema = Yup.object().shape({
   address: addressSchema,
@@ -27,7 +39,7 @@ const createHeadOfficeSchema = Yup.object().shape({
 });
 
 export default function HeadOfficeForm() {
-  const { addHeadOfficeMutation: { mutate } } = useHeadOffice();
+  const { mutate } = useAddData({ mutationName: 'headOffices', fetchFn: addHeadOfficeService });
 
   const refInput = useRef<TextInput | null>(null);
 
@@ -63,7 +75,7 @@ export default function HeadOfficeForm() {
               name: '',
             }}
             onSubmit={(values) => {
-              mutate(values);
+              mutate({ ...values, id: '' });
             }}
             validationSchema={createHeadOfficeSchema}
           >

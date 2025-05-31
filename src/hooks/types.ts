@@ -1,0 +1,1 @@
+export type TQueryKey = 'headOffices' | 'users';

@@ -1,35 +1,51 @@
 import React, { useEffect } from "react";
-import { FlatList, Text } from "react-native";
 
 import Container from "../../../components/Container/Container";
-
+import ListItemTitle from "../../../components/List/ListItemTitle/ListItemTitle";
+import ListItemLabel from "../../../components/List/ListItemLabel/ListItemLabel";
+import Loading from "../../../components/Loading/Loading";
 import { FAB } from "../../../components/Button/FAB/FAB";
+import { List } from "../../../components/List/List";
+
 import { navigate } from "../../../service/NavigationService";
-import { useHeadOffice } from "../../../hooks/useHeadOffice";
+import { getAllHeadOfficesService } from "../../../service/headOfficeService";
+
+import { useToast } from "../../../hooks/useToast";
+import { useGetAllData } from "../../../hooks/useGetAllData";
+
+import { IHeadOffice } from "../../../interfaces/IHeadOffice";
 
 export default function HeadOfficeList() {
-  const { headOfficeQuery: {
-    data,
-    isLoading,
-    isError
-  } } = useHeadOffice();
+  const { error } = useToast();
+
+  const { data, isError, isLoading } = useGetAllData<IHeadOffice>({ queryKeyName: 'headOffices', fetchFn: getAllHeadOfficesService });
+  
+  useEffect(() => {
+    if (isError) {
+      error('Erro ao carregar informações')
+    };
+  }, [isError]);
+  
+  if (isLoading) return <Loading />;
 
   return (
     <Container>
-      <FlatList
-        contentContainerStyle={{
-          flexGrow: 1,
-          paddingHorizontal: 20,
-        }}
-        keyExtractor={(item) => item.name}
-        data={data}
-        renderItem={({ item }) => (
-          <Text>{item.name}</Text>
+      <List<IHeadOffice>
+        data={data || []}
+        renderContent={(item: IHeadOffice) => (
+          <>
+            <ListItemTitle
+              title={item.name}
+            />
+            <ListItemLabel
+              label={item.address}
+            />
+          </>
         )}
       />
 
       <FAB
-        onClick={() => navigate('HeadOfficeForm')}
+        onPressButton={() => navigate('HeadOfficeForm')}
       />
     </Container>
   );
