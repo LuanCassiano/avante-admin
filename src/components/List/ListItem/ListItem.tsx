@@ -1,9 +1,8 @@
 import React, { JSX, ReactNode } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { Colors } from "../../../global/Colors";
 import { FontAwesome5 } from '@expo/vector-icons';
-import { navigate } from "../../../service/NavigationService";
-import { IHeadOffice } from "../../../interfaces/IHeadOffice";
+import { styles } from "./ListItem.styles";
 
 interface ItemListProps<T extends { id?: string }> {
   item: T;
@@ -21,54 +20,40 @@ function ItemList<T extends { id: string }> ({
   onViewItem
 }: ItemListProps<T>) {
   return (
-    <View
-        style={{
-          padding: 20,
-          marginVertical: 10,
-          backgroundColor: '#fff',
-          borderRadius: 10,
-          borderWidth: 1,
-          borderColor: '#ddd',
-        }}
-      >
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <View>  
-            {renderContent(item)}
-          </View>
+    <View style={styles.itemListContainer}>
+      <View style={styles.itemListRow}>
+        <View>  
+          {renderContent(item)}
+        </View>
 
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              width: 120,
-              gap: 10,
-            }}
+        <View style={styles.itemListActionsContent}>
+          <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityLabel={`view-button-${item.id}`}
+            testID={`view-button-${item.id}`}
+            onPress={() => onViewItem(item)}
           >
-            <TouchableOpacity
-              onPress={() => onViewItem(item)}
-            >
-              <FontAwesome5 name="eye" size={20} color={Colors.INFO} /> 
-            </TouchableOpacity> 
-            <TouchableOpacity
-              onPress={() => onEditItem(item)}
-            >
-              <FontAwesome5 name="edit" size={20} color={Colors.WARNING} /> 
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => onDeleteItem(item)}
-            >
-              <FontAwesome5 name="trash-alt" size={20} color={Colors.ERROR} />
-            </TouchableOpacity> 
-          </View>
+            <FontAwesome5 name="eye" size={20} color={Colors.INFO} /> 
+          </TouchableOpacity> 
+          <TouchableOpacity
+            accessibilityLabel={`edit-button-${item.id}`} 
+            accessibilityRole="button"
+            testID={`edit-button-${item.id}`}
+            onPress={() => onEditItem(item)}
+          >
+            <FontAwesome5 name="edit" size={20} color={Colors.WARNING} /> 
+          </TouchableOpacity>
+          <TouchableOpacity
+            accessibilityLabel={`delete-button-${item.id}`} 
+            accessibilityRole="button"
+            testID={`delete-button-${item.id}`}
+            onPress={() => onDeleteItem(item)}
+          >
+            <FontAwesome5 name="trash-alt" size={20} color={Colors.ERROR} />
+          </TouchableOpacity> 
         </View>
       </View>
+    </View>
   )
 }
 

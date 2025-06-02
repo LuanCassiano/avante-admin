@@ -7,6 +7,7 @@ import { TFABProps } from "./FAB.types";
 function RoundedButton ({ onPressButton }: TFABProps) {
   return (
     <TouchableOpacity
+      accessibilityRole="button"
       onPress={onPressButton}
       style={styles.fab}
     >
