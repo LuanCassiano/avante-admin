@@ -3,15 +3,22 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { Colors } from "../../../global/Colors";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { navigate } from "../../../service/NavigationService";
+import { IHeadOffice } from "../../../interfaces/IHeadOffice";
 
 interface ItemListProps<T extends { id?: string }> {
   item: T;
   renderContent: (item: T) => ReactNode;
+  onViewItem: (item: T) => void;
+  onEditItem: (item: T) => void;
+  onDeleteItem: (item: T) => void;
 }
 
 function ItemList<T extends { id: string }> ({
   item,
-  renderContent
+  renderContent,
+  onDeleteItem,
+  onEditItem,
+  onViewItem
 }: ItemListProps<T>) {
   return (
     <View
@@ -45,17 +52,17 @@ function ItemList<T extends { id: string }> ({
             }}
           >
             <TouchableOpacity
-              onPress={() => navigate('HeadOfficeDetail', { id: item.id })}
+              onPress={() => onViewItem(item)}
             >
               <FontAwesome5 name="eye" size={20} color={Colors.INFO} /> 
             </TouchableOpacity> 
             <TouchableOpacity
-              onPress={() => console.log('Edit item', item.id)}
+              onPress={() => onEditItem(item)}
             >
               <FontAwesome5 name="edit" size={20} color={Colors.WARNING} /> 
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => console.log('Remove item', item.id)}
+              onPress={() => onDeleteItem(item)}
             >
               <FontAwesome5 name="trash-alt" size={20} color={Colors.ERROR} />
             </TouchableOpacity> 

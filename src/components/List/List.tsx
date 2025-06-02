@@ -5,11 +5,17 @@ import { ListItem } from "./ListItem/ListItem";
 interface ListContainerProps<T extends { id: string }> {
   data: T[];
   renderContent: (item: T) => ReactNode;
+  onViewItem: (item: T) => void;
+  onEditItem: (item: T) => void;
+  onDeleteItem: (item: T) => void;
 }
 
 export const List = <T extends { id: string }>({
   data,
-  renderContent
+  renderContent,
+  onDeleteItem,
+  onEditItem,
+  onViewItem
 }: ListContainerProps<T>): JSX.Element => {
   
 
@@ -21,6 +27,9 @@ export const List = <T extends { id: string }>({
         <ListItem
           item={item}
           renderContent={renderContent} 
+          onDeleteItem={onDeleteItem}
+          onEditItem={onEditItem}
+          onViewItem={onViewItem}
         />
       )}
       contentContainerStyle={{

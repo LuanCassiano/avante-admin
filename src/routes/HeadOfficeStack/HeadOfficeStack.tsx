@@ -35,7 +35,7 @@ export default function HeadOfficeStack() {
         name="HeadOfficeForm" 
         component={HeadOfficeFormScreen}
         options={{
-          title: 'Cadastro de Locais de Treino',
+          title: 'Locais de Treino',
           headerTitleStyle: {
             color: 'white',
             fontSize: 16,
@@ -62,7 +62,7 @@ export default function HeadOfficeStack() {
         name="HeadOfficeDetail" 
         component={HeadOfficeDetailScreen}
         options={{
-          title: 'Informações Locais de Treino',
+          title: 'Informações Local de Treino',
           headerTitleStyle: {
             color: 'white',
             fontSize: 16,

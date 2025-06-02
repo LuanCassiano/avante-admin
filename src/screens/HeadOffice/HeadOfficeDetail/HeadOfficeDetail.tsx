@@ -17,7 +17,7 @@ export default function HeadOfficeDetail() {
   const { params: { id } } = useRoute<HeadOfficeDetailRouteProp>();
 
   const { data, isLoading } = useGetDataById<IHeadOffice>({ id, queryKeyName: 'headOffices', fetchFn: getHeadOfficeByIdService });
-
+  
   if (isLoading) return <Loading />;
 
   return (

@@ -26,7 +26,11 @@ import {
 
 import { useAddData } from "../../../hooks/useAddData";
 
-import { addHeadOfficeService } from "../../../service/headOfficeService";
+import { addHeadOfficeService, updateHeadOffice } from "../../../service/headOfficeService";
+import { RouteProp, useRoute } from "@react-navigation/native";
+import { GlobalParamList } from "../../../routes/types";
+import { useUpdateData } from "../../../hooks/useUpdateData";
+import { IHeadOffice } from "../../../interfaces/IHeadOffice";
 
 const createHeadOfficeSchema = Yup.object().shape({
   address: addressSchema,
@@ -38,8 +42,16 @@ const createHeadOfficeSchema = Yup.object().shape({
   addressNumber: streetNumberSchema,
 });
 
+type HeadOfficeFormRouteProp = RouteProp<GlobalParamList, 'HeadOfficeForm'>;
+
 export default function HeadOfficeForm() {
-  const { mutate } = useAddData({ mutationName: 'headOffices', fetchFn: addHeadOfficeService });
+  const { params } = useRoute<HeadOfficeFormRouteProp>();
+
+  const existingData = params?.data ?? null;
+  const isEditMode = !!existingData;
+
+  const { mutate: addMutate } = useAddData({ mutationName: 'headOffices', fetchFn: addHeadOfficeService });
+  const { mutate: updateMutate } = useUpdateData({ fetchFn: updateHeadOffice, id: existingData?.id ?? '', mutationName: 'headOffices' })
 
   const refInput = useRef<TextInput | null>(null);
 
@@ -59,23 +71,25 @@ export default function HeadOfficeForm() {
           <Title
             fontStyle="bold"
             textColor={Colors.PRIMARY}
-            title="Formulário de Cadastro"
+            title={existingData?.id ? 'Editar informações' : 'Formulário de Cadastro'}
             textSize={24}
           />
 
           <Formik
             initialValues={{
-              address: '',
-              addressNumber: '',
-              city: '',
-              state: '',
-              postalCode: '',
-              phone: '',
-              neighborhood: '',
-              name: '',
-            }}
-            onSubmit={(values) => {
-              mutate({ ...values, id: '' });
+              address: existingData?.address ?? '',
+              addressNumber: existingData?.addressNumber ?? '',
+              city: existingData?.city ?? '',
+              state: existingData?.state ?? '',
+              postalCode: existingData?.postalCode ?? '',
+              phone: existingData?.phone ?? '',
+              neighborhood: existingData?.neighborhood ?? '',
+              name: existingData?.name?? '',
+            } as IHeadOffice}
+            onSubmit={(values: IHeadOffice) => {
+              const payload = { ...values, id: existingData?.id ?? '' }
+              isEditMode ? updateMutate({ id: existingData?.id ?? '', data: payload }) : addMutate(values);
+              
             }}
             validationSchema={createHeadOfficeSchema}
           >
@@ -224,15 +238,12 @@ export default function HeadOfficeForm() {
                 />
 
                 <CustomButton
-                  title='Cadastrar'
+                  title={existingData?.id ? 'Salvar alterações' : 'Cadastrar'}
                   buttonBgColor={Colors.PRIMARY}
                   buttonTitleColor={Colors.WHITE}
                   buttonTitleFontStyle="bold"
                   buttonTitleSize={16}
-                  onButtonPress={() => {
-                    console.log('Submitting form...');
-                    handleSubmit()
-                  }}
+                  onButtonPress={() => handleSubmit()}
                 />
               </>
             )}

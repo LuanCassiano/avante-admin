@@ -24,7 +24,7 @@ export const getAllHeadOfficesService = async () => {
     const headOffices: IHeadOffice[] = [];
     snapshot.forEach(doc => {
       const data = doc.data(); 
-      headOffices.push({ id: doc.id, name: data.name, address: data.address } as IHeadOffice);
+      headOffices.push({ id: doc.id, ...data } as IHeadOffice);
     });
     return headOffices;
   } catch (error) {
@@ -44,5 +44,35 @@ export const getHeadOfficeByIdService = async (id: string) => {
   } catch (error) {
     console.log('Error getting head office by ID:', error);
     return null;
+  }
+}
+
+export const updateHeadOffice = async (id: string, data: IHeadOffice): Promise<IHeadOffice> => {
+  if (!id) throw new Error('Erro ao tentar editar item');
+
+  try {
+    await firestore()
+      .collection('headOffices')
+      .doc(id)
+      .update({
+        ...data,
+        updatedAt: firestore.FieldValue.serverTimestamp(),
+      });
+
+      return data;
+  } catch (error) {
+    console.log('Error getting head office by ID:', error);
+    return { } as IHeadOffice;
+  }
+}
+
+export const removeHeadOfficeService = async (id: string): Promise<void> => {
+  try {
+    await firestore()
+      .collection('headOffices')
+      .doc(id)
+      .delete()
+  } catch (error) {
+    console.log('Error delete head officE', error);
   }
 }
