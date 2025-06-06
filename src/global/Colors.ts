@@ -6,5 +6,6 @@ export const Colors = {
   WHITE: '#ffffff',
   PRIMARY: '#9f15ce',
   SECONDARY: '#c68fd3',
-  BLACK: '#000000'
+  BLACK: '#000000',
+  LIGHT_GRAY: '#dddddd', 
 }

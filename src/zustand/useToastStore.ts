@@ -6,8 +6,9 @@ type TToastStoreProps = {
   showToast: boolean;
   toastMessage: string;
   toastType: TToastType | null,
-  onShow: (toastType: TToastType, message: string) => void;
+  onShow: (toastType: TToastType, message: string, callback?: () => void) => void;
   onHide: () => void;
+  onHideCallback?: () => void;
 }
 
 export const {
@@ -17,18 +18,28 @@ export const {
   showToast: false,
   toastMessage: '',
   toastType: null,
-  onShow: (toastType, message) => {
+  onHideCallback: undefined,
+  onShow: (toastType, message, callback) => {
     set({
       showToast: true,
       toastType,
       toastMessage: message,
+      onHideCallback: callback,
     });
   },
-  onHide() {
-    set({
-      showToast: false,
-      toastType: null,
-      toastMessage: '',
+  onHide: () => {
+    set((state) => {
+      const callback = state.onHideCallback;
+      if (callback) {
+        setTimeout(callback, 0)
+      }
+
+      return {
+        showToast: false,
+        toastMessage: '',
+        toastType: null,
+        onHideCallback: undefined,
+      }
     });
   },
 }));
