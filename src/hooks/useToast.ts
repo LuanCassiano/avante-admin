@@ -1,14 +1,14 @@
 import { toastRawStore, TToastType } from '../zustand/useToastStore';
 
 export function useToast() {
-  const show = (type: TToastType, message: string) => {
-    toastRawStore.getState().onShow(type, message);
+  const show = (type: TToastType, message: string, callback?: () => void) => {
+    toastRawStore.getState().onShow(type, message, callback);
   };
 
   return {
-    success: (msg: string) => show('success', msg),
-    error: (msg: string) => show('error', msg),
-    warning: (msg: string) => show('warning', msg),
-    info: (msg: string) => show('info', msg),
+    success: (msg: string, cb?: () => void) => show('success', msg, cb),
+    error: (msg: string, cb?: () => void) => show('error', msg, cb),
+    warning: (msg: string, cb?: () => void) => show('warning', msg, cb),
+    info: (msg: string, cb?: () => void) => show('info', msg, cb),
   };
 }

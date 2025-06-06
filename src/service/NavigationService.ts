@@ -8,7 +8,7 @@ export function navigate<RouteName extends keyof GlobalParamList>(
   params?: GlobalParamList[RouteName]
  ) {
   if (navigationRef.isReady()) {
-    navigationRef.navigate(screen as any, params);
+    navigationRef.navigate({ name: screen, params } as never);
   }
 }
 
