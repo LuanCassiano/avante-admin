@@ -8,13 +8,26 @@ jest.mock('../../service/signIn');
 jest.mock('../../zustand/useAuthStore');
 jest.mock('../useToast');
 
+jest.mock('@react-native-async-storage/async-storage', () => {
+  return require('@react-native-async-storage/async-storage/jest/async-storage-mock');
+});
+
+
 describe('useSignIn', () => {
   const mockSetUser = jest.fn();
   const mockError = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (useAuthStore as jest.Mock).mockImplementation((selector) => selector({ setUser: mockSetUser }));
+    (useAuthStore as jest.Mock).mockImplementation((selector) =>
+      selector({
+        user: { email: null, uid: null },
+        hydrated: true,
+        setUser: mockSetUser,
+        setHydrated: jest.fn(),
+      })
+    );
+
     (useToast as jest.Mock).mockReturnValue({ error: mockError });
   });
 

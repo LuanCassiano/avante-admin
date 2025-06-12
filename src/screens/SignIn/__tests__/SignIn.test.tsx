@@ -56,7 +56,7 @@ describe('Sign In Screen', () => {
 
     fireEvent.press(getByText('Entrar'));
   
-    expect(await findByText('Insira seu e-mail')).toBeTruthy();
+    expect(await findByText('Insira o e-mail')).toBeTruthy();
     expect(await findByText('Insira sua senha')).toBeTruthy();
   });
 

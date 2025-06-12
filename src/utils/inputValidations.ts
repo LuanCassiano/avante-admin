@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 enum EFeedbackMessage {
-  REQUIRED_EMAIL = 'Insira seu e-mail',
+  REQUIRED_EMAIL = 'Insira o e-mail',
   REQUIRED_NAME = 'Insira o nome',
   REQUIRED_CREF = 'Insira o número do CREF',
   REQUIRED_PHONE = 'Insira o número do telefone',

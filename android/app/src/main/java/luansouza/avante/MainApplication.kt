@@ -1,4 +1,4 @@
-package luanouza.avante
+package luansouza.avante
 
 import android.app.Application
 import android.content.res.Configuration

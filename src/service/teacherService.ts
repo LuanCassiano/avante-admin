@@ -1,5 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import { ITeacher } from "../interfaces/ITeacher";
+import { signUpService } from './signUp';
 
 export async function addTeacher(data: ITeacher): Promise<ITeacher> {
   if (!data) throw new Error('Erro ao tentar criar item');
@@ -12,7 +13,9 @@ export async function addTeacher(data: ITeacher): Promise<ITeacher> {
         createdAt: firestore.FieldValue.serverTimestamp(),
       })
 
-      return data;
+    await signUpService({ email: data.email, name: data.name, password: 'Avante@123' })
+
+    return data;
   } catch (error) {
     console.log('Error adding teacher:', error);
     return {} as ITeacher;

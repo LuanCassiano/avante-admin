@@ -19,6 +19,7 @@ export const getAllHeadOfficesService = async () => {
   try {
     const snapshot = await firestore()
       .collection('headOffices')
+      .where('createdAt', '!=', null)
       .orderBy('createdAt', 'desc')
       .get();
     const headOffices: IHeadOffice[] = [];
@@ -26,6 +27,7 @@ export const getAllHeadOfficesService = async () => {
       const data = doc.data(); 
       headOffices.push({ id: doc.id, ...data } as IHeadOffice);
     });
+
     return headOffices;
   } catch (error) {
     console.log('Error getting head offices:', error);
