@@ -24,7 +24,7 @@
       },
       "edgeToEdgeEnabled": true,
       "googleServicesFile": "./android/app/google-services.json",
-      "package": "luanouza.avante"
+      "package": "luansouza.avante"
     },
     "web": {
       "favicon": "./assets/favicon.png"
