@@ -1,18 +1,32 @@
-import { type StateCreator, createStore, type StoreApi } from 'zustand/vanilla'
-import { useStoreWithEqualityFn } from 'zustand/traditional'
-import { shallow } from 'zustand/shallow'
+import { StateCreator, createStore, StoreApi } from 'zustand';
+import { useStoreWithEqualityFn } from 'zustand/traditional';
+import { shallow } from 'zustand/shallow';
+import type { PersistOptions } from 'zustand/middleware';
 
 export function createZustandStoreWithSelectors<T>(
-  initializer: StateCreator<T>
+  initializer: StateCreator<T>,
+  persistConfig?: PersistOptions<T>
 ): {
-  useStore: <Selected>(selector: (state: T) => Selected) => Selected
-  rawStore: StoreApi<T>
+  useStore: <Selected>(selector: (state: T) => Selected) => Selected;
+  rawStore: StoreApi<T>;
 } {
-  const rawStore = createStore(initializer)
-
-  function useStore<Selected>(selector: (state: T) => Selected): Selected {
-    return useStoreWithEqualityFn(rawStore, selector, shallow)
+  function createSelectors(store: StoreApi<T>) {
+    function useStore<Selected>(selector: (state: T) => Selected): Selected {
+      return useStoreWithEqualityFn(store, selector, shallow);
+    }
+    return useStore;
   }
 
-  return { useStore, rawStore }
+  const { persist } = require('zustand/middleware');
+
+  const storeInitializer = persistConfig
+    ? persist(initializer, persistConfig)
+    : initializer;
+
+  const rawStore = createStore<T>(storeInitializer);
+
+  return {
+    rawStore,
+    useStore: createSelectors(rawStore),
+  };
 }

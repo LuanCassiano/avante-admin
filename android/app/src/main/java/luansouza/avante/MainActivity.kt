@@ -1,4 +1,4 @@
-package luanouza.avante
+package luansouza.avante
 
 import android.os.Build
 import android.os.Bundle

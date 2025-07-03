@@ -1,5 +1,5 @@
 import React from 'react';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
@@ -7,9 +7,10 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 const { Navigator, Screen } = createBottomTabNavigator();
 
 import HomeScreen from '../screens/Home/Home';
-import TeacherListScreen from '../screens/Teacher/TeacherList/TeacherList';
 
 import HeadOfficeStack from './HeadOfficeStack/HeadOfficeStack';
+import TeacherStack from './TeacherStack/TeacherStack';
+
 import { Colors } from '../global/Colors';
 
 export default function MainNavigation() {
@@ -49,6 +50,29 @@ export default function MainNavigation() {
             tabBarIcon: ({ color, size }) => (
               <FontAwesome5
                 name="building"
+                size={size}
+                color={color}
+              />
+            ),
+          }
+        }}
+      />
+
+      <Screen
+        name="TeacherNav"
+        component={TeacherStack}
+        options={({ route }) => {
+          const routeName = getFocusedRouteNameFromRoute(route) ?? 'TeacherList';
+
+          const hideOnScreens = ['TeacherForm'];
+          const shouldHideTabBar = hideOnScreens.includes(routeName);
+
+          return {
+            tabBarStyle: shouldHideTabBar ? { display: 'none' } : undefined,
+            title: 'Professores',
+            tabBarIcon: ({ color, size }) => (
+              <FontAwesome6
+                name="user-tie"
                 size={size}
                 color={color}
               />

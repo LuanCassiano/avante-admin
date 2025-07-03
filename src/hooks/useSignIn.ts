@@ -7,12 +7,12 @@ interface ISignInHook extends ISignIn {}
 
 export function useSignIn() {
   const { error } = useToast();
+  const setUser = useAuthStore((s) => s.setUser);
 
   const signIn = async ({
     email,
     password
   }: ISignInHook) => {
-    const setUser = useAuthStore((s) => s.setUser);
 
     if (!email || !password) {
       error('Erro ao realizar o login');

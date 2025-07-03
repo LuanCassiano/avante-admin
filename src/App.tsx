@@ -13,16 +13,27 @@ import { navigationRef } from './service/NavigationService';
 
 import Toast from './components/Toast/Toast';
 import { useAuthStore } from './zustand/useAuthStore';
+import { ActivityIndicator } from 'react-native';
+import Container from './components/Container/Container';
+import { Colors } from './global/Colors';
 
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
-  const user = useAuthStore((state) => state.user);
+  const { hydrated, user } = useAuthStore((state) => state);
+
+  if(!hydrated) {
+    return (
+      <Container>
+        <ActivityIndicator size="large" color={Colors.PRIMARY} />
+      </Container>
+    )
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer ref={navigationRef}>
-        {user ? <MainNavigation /> : <Routes />}
+        {user.uid ? <MainNavigation /> : <Routes />}
         <Toast />
       </NavigationContainer>
     </QueryClientProvider>

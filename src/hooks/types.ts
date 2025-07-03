@@ -1,1 +1,1 @@
-export type TQueryKey = 'headOffices' | 'users';
+export type TQueryKey = 'headOffices' | 'users' | 'teachers';
