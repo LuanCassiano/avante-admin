@@ -1,3 +1,4 @@
+import { IClass } from "../interfaces/IClass";
 import { IHeadOffice } from "../interfaces/IHeadOffice";
 import { ITeacher } from "../interfaces/ITeacher";
 
@@ -12,4 +13,6 @@ export type GlobalParamList = {
   TeacherList: undefined;
   TeacherForm: { data?: ITeacher };
   TeacherDetail: { id: string };
+  ClassList: undefined;
+  ClassForm: { data?: IClass };
 }

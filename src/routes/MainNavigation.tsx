@@ -1,5 +1,5 @@
 import React from 'react';
-import { FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
+import { FontAwesome5, FontAwesome6, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
@@ -10,6 +10,7 @@ import HomeScreen from '../screens/Home/Home';
 
 import HeadOfficeStack from './HeadOfficeStack/HeadOfficeStack';
 import TeacherStack from './TeacherStack/TeacherStack';
+import ClassStack from './ClassStack/ClassStack';
 
 import { Colors } from '../global/Colors';
 
@@ -73,6 +74,29 @@ export default function MainNavigation() {
             tabBarIcon: ({ color, size }) => (
               <FontAwesome6
                 name="user-tie"
+                size={size}
+                color={color}
+              />
+            ),
+          }
+        }}
+      />
+
+      <Screen
+        name="ClassNav"
+        component={ClassStack}
+        options={({ route }) => {
+          const routeName = getFocusedRouteNameFromRoute(route) ?? 'TeacherList';
+
+          const hideOnScreens = ['ClassForm'];
+          const shouldHideTabBar = hideOnScreens.includes(routeName);
+
+          return {
+            tabBarStyle: shouldHideTabBar ? { display: 'none' } : undefined,
+            title: 'Turmas',
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons
+                name="google-classroom"
                 size={size}
                 color={color}
               />

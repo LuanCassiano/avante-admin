@@ -13,6 +13,9 @@ enum EFeedbackMessage {
   REQUIRED_NEIGHBORHOOD = 'Insira o bairro',
   REQUIRED_CITY = 'Insira a cidade',
   REQUIRED_STATE = 'Insira o estado',
+  REQUIRED_TEACHER = 'Selecione um professor para esta turma',
+  REQUIRED_HEAD_OFFICE = 'Selecione um local de treino para esta turma',
+  REQUIRED_CLASSNAME = 'Insira o nome da turma',
 }
 
 export const emailSchema = Yup.string()
@@ -38,3 +41,9 @@ export const neighborhoodSchema = Yup.string().required(EFeedbackMessage.REQUIRE
 export const citySchema = Yup.string().required(EFeedbackMessage.REQUIRED_CITY);
 
 export const stateSchema = Yup.string().required(EFeedbackMessage.REQUIRED_STATE);
+
+export const classNameSchema = Yup.string().required(EFeedbackMessage.REQUIRED_CLASSNAME);
+
+export const classHeadOffice = Yup.string().required(EFeedbackMessage.REQUIRED_HEAD_OFFICE);
+
+export const classTeacher = Yup.string().required(EFeedbackMessage.REQUIRED_TEACHER);

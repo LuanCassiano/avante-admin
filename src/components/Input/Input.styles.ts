@@ -3,7 +3,6 @@ import { Colors } from "../../global/Colors";
 
 export const styles = StyleSheet.create({
   inputContent: {
-    marginLeft: 20,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -18,7 +17,7 @@ export const styles = StyleSheet.create({
     marginTop: -5,
     marginRight: 0,
     marginBottom: 15,
-    marginLeft: 20,
+    marginLeft: 0,
   },
 
   inputTextError: {

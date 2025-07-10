@@ -23,7 +23,6 @@ export default function InputContainer({
     <>
       <View style={getInputContainerStyle(error, touched)}>
         <View style={styles.inputContent}>
-          {leftIcon}
           {children}
           {rightIcon && (
             <View style={styles.inputAlignment}>

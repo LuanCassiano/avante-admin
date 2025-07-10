@@ -1,9 +1,8 @@
 import React from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 
-import TeacherListScreen from '../../screens/Teacher/TeacherList/TeacherList';
-import TeacherFormScreen from '../../screens/Teacher/TeacherForm/TeacherForm';
-import TeacherDetailScreen from '../../screens/Teacher/TeacherDetail/TeacherDetail';
+import ClassListScreen from '../../screens/Class/ClassList/ClassList';
+import ClassFormScreen from '../../screens/Class/ClassForm/ClassForm';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { GlobalParamList } from '../types';
@@ -17,13 +16,13 @@ export default function TeacherStack() {
   return (
     <Navigator>
       <Screen
-        name="TeacherList"
-        component={TeacherListScreen}
+        name="ClassList"
+        component={ClassListScreen}
         options={{
-          title: 'Avante Voleibol',
+          title: 'Turmas',
           headerTitleStyle: {
             color: 'white',
-            fontSize: 24,
+            fontSize: 16,
             fontWeight: 'bold',
           },
           headerStyle: {
@@ -32,38 +31,10 @@ export default function TeacherStack() {
         }}
       />
       <Screen
-        name="TeacherForm" 
-        component={TeacherFormScreen}
+        name="ClassForm" 
+        component={ClassFormScreen}
         options={{
-          title: 'Avante Voleibol',
-          headerTitleStyle: {
-            color: 'white',
-            fontSize: 24,
-            fontWeight: 'bold',
-          },
-          headerStyle: {
-            backgroundColor: Colors.PRIMARY,
-          },
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => goBack()}
-            >
-              <MaterialIcons
-                name="arrow-back"
-                size={24}
-                color="white"
-                style={{ marginLeft: 10 }}
-              />
-            </TouchableOpacity>
-          )
-        }}
-      />
-
-      <Screen
-        name="TeacherDetail" 
-        component={TeacherDetailScreen}
-        options={{
-          title: 'Professores',
+          title: 'Turmas',
           headerTitleStyle: {
             color: 'white',
             fontSize: 16,
