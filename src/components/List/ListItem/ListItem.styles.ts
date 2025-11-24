@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
   itemListActionsContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     width: 120,
     gap: 10,
   },

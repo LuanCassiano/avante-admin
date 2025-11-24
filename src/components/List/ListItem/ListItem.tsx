@@ -20,21 +20,13 @@ function ItemList<T extends { id: string }> ({
   onViewItem
 }: ItemListProps<T>) {
   return (
-    <View style={styles.itemListContainer}>
+    <TouchableOpacity onPress={() => onViewItem(item)} style={styles.itemListContainer}>
       <View style={styles.itemListRow}>
-        <View>  
+        <View style={{ width: '70%'}}>  
           {renderContent(item)}
         </View>
 
         <View style={styles.itemListActionsContent}>
-          <TouchableOpacity
-            accessibilityRole="button"
-            accessibilityLabel={`view-button-${item.id}`}
-            testID={`view-button-${item.id}`}
-            onPress={() => onViewItem(item)}
-          >
-            <FontAwesome5 name="eye" size={20} color={Colors.INFO} /> 
-          </TouchableOpacity> 
           <TouchableOpacity
             accessibilityLabel={`edit-button-${item.id}`} 
             accessibilityRole="button"
@@ -53,7 +45,7 @@ function ItemList<T extends { id: string }> ({
           </TouchableOpacity> 
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
